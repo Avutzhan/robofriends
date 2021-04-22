@@ -1,27 +1,39 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import './App.css';
 import ErrorBoundry from '../components/ErrorBoundry';
 
-class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      robots: [],
-      searchfield: ''
-    }
-  }
+function App() {
+    //state changed and stateful class component changed to functional component with jooks
+  // constructor() { ****changed*****
+  //   super()
+  //   this.state = {
+  //     robots: [],
+  //     searchfield: ''
+  //   }
+  // }
 
-  componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json())
-      .then(users => this.setState({ robots: users}))
-    
-  }
+    const [robots, setRobots] = useState([])
+    const [searchfield, setSearchField] = useState('')
 
-  onSearchChange = (event) => {
+  // componentDidMount() { ****changed****
+  //   fetch('https://jsonplaceholder.typicode.com/users')
+  //     .then(response => response.json())
+  //     .then(users => this.setState({ robots: users}))
+  //
+  // }
+
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(users => setRobots(users))
+    },[])
+
+    //чтобы использовать componentDidMount нужно в конце функции добавить пустой массив [] так устроено если массив не добавить то будет бесконечный вызов
+
+  const onSearchChange = (event) => {
     
     //именно тут на this может возникнуть ошибка связывания с компонентом
     //onSearchChange(event) { при таком синтаксисе. Это связано с тем что 
@@ -29,15 +41,14 @@ class App extends Component {
     //стейта. Чтобы такого не было нужно просто поменять синтаксис функции на
     //onSearchChange = (event) => {
 
-    this.setState({ searchfield: event.target.value })
+    // this.setState({ searchfield: event.target.value }) ****changed****
+      setSearchField(event.target.value)
 
     
   }
+    // const { robots, searchfield } = this.state; ****removed*****
 
-  render() {
-    const { robots, searchfield } = this.state;
-
-    const filteredRobots = robots.filter(robot => {  
+    const filteredRobots = robots.filter(robot => {
       return robot.name.toLowerCase().includes(searchfield.toLowerCase())
     })
 
@@ -46,19 +57,17 @@ class App extends Component {
       (
         <div className='tc'>
           <h1 className='f1' >Robofriends</h1>
-          <SearchBox searchChange={this.onSearchChange} />
+          <SearchBox searchChange={onSearchChange} />
           <Scroll>
             <ErrorBoundry>
               <CardList robots={filteredRobots}/>
             </ErrorBoundry>
           </Scroll>
-          
+
         </div>
-    
+
       );
-    
-    
-  } 
+
 }
 
 export default App;
