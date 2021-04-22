@@ -1,45 +1,43 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import './App.css';
 import ErrorBoundry from '../components/ErrorBoundry';
 
-class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      robots: [],
-      searchfield: ''
+import { setSearchField} from "../actions";
+
+const mapStateToProps = state => {
+    return {
+        searchField: state.searchRobots.searchField
     }
-  }
+}
 
-  componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users', {
-      method: 'GET'
-    })
-      .then(response => response.json())
-      .then(users => this.setState({ robots: users}))
-    
-  }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+    }
+}
 
-  onSearchChange = (event) => {
-    
-    //именно тут на this может возникнуть ошибка связывания с компонентом
-    //onSearchChange(event) { при таком синтаксисе. Это связано с тем что 
-    //this вызывается в другом компоненте SearchBox в инпуте но у инпута нет 
-    //стейта. Чтобы такого не было нужно просто поменять синтаксис функции на
-    //onSearchChange = (event) => {
+function App() {
+    const [robots, setRobots] = useState([])
+    // const [searchfield, setSearchField] = useState('')
+    const [count, setCount] = useState(0)
 
-    this.setState({ searchfield: event.target.value })
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(users => setRobots(users))
+        console.log(count)
+    },[count])
 
-    
-  }
+  // const onSearchChange = (event) => {
+  //     setSearchField(event.target.value)
+  //
+  // }
 
-  render() {
-    const { robots, searchfield } = this.state;
-
-    const filteredRobots = robots.filter(robot => {  
+    const filteredRobots = robots.filter(robot => {
       return robot.name.toLowerCase().includes(searchfield.toLowerCase())
     })
 
@@ -48,19 +46,18 @@ class App extends Component {
       (
         <div className='tc'>
           <h1 className='f1' >Robofriends</h1>
-          <SearchBox searchChange={this.onSearchChange} />
+          <button onClick={()=>setCount(count+1)}>Click me</button>
+          <SearchBox searchChange={onSearchChange} />
           <Scroll>
             <ErrorBoundry>
               <CardList robots={filteredRobots}/>
             </ErrorBoundry>
           </Scroll>
-          
+
         </div>
-    
+
       );
-    
-    
-  } 
+
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
