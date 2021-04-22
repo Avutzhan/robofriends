@@ -6,47 +6,21 @@ import './App.css';
 import ErrorBoundry from '../components/ErrorBoundry';
 
 function App() {
-    //state changed and stateful class component changed to functional component with jooks
-  // constructor() { ****changed*****
-  //   super()
-  //   this.state = {
-  //     robots: [],
-  //     searchfield: ''
-  //   }
-  // }
-
     const [robots, setRobots] = useState([])
     const [searchfield, setSearchField] = useState('')
-
-  // componentDidMount() { ****changed****
-  //   fetch('https://jsonplaceholder.typicode.com/users')
-  //     .then(response => response.json())
-  //     .then(users => this.setState({ robots: users}))
-  //
-  // }
+    const [count, setCount] = useState(0)
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => response.json())
             .then(users => setRobots(users))
-    },[])
-
-    //чтобы использовать componentDidMount нужно в конце функции добавить пустой массив [] так устроено если массив не добавить то будет бесконечный вызов
+        console.log(count)
+    },[count])
 
   const onSearchChange = (event) => {
-    
-    //именно тут на this может возникнуть ошибка связывания с компонентом
-    //onSearchChange(event) { при таком синтаксисе. Это связано с тем что 
-    //this вызывается в другом компоненте SearchBox в инпуте но у инпута нет 
-    //стейта. Чтобы такого не было нужно просто поменять синтаксис функции на
-    //onSearchChange = (event) => {
-
-    // this.setState({ searchfield: event.target.value }) ****changed****
       setSearchField(event.target.value)
 
-    
   }
-    // const { robots, searchfield } = this.state; ****removed*****
 
     const filteredRobots = robots.filter(robot => {
       return robot.name.toLowerCase().includes(searchfield.toLowerCase())
@@ -57,6 +31,7 @@ function App() {
       (
         <div className='tc'>
           <h1 className='f1' >Robofriends</h1>
+          <button onClick={()=>setCount(count+1)}>Click me</button>
           <SearchBox searchChange={onSearchChange} />
           <Scroll>
             <ErrorBoundry>
