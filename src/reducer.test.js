@@ -51,11 +51,31 @@ describe('requestRobots', () => {
     it('should handle REQUEST_ROBOTS_SUCCESS action', () => {
         expect(reducers.requestRobots(initialStateRobots, {
             type: REQUEST_ROBOTS_SUCCESS,
-
+            payload: [{
+                id: "123",
+                name: 'test',
+                email: "test@mail.com"
+            }]
         })).toEqual({
-            robots: [],
-            isPending: true,
+            robots: [{
+                id: "123",
+                name: 'test',
+                email: "test@mail.com"
+            }],
+            isPending: false,
             error: ''
         })
     })
+
+    it('should handle REQUEST_ROBOTS_FAILED action', () => {
+        expect(reducers.requestRobots(initialStateRobots, {
+            type: REQUEST_ROBOTS_FAILED,
+            payload: 'Nooooo'
+        })).toEqual({
+            error: 'Nooooo',
+            robots: [],
+            isPending: false
+        })
+    })
+
 })
