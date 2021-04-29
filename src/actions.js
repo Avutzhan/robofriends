@@ -6,6 +6,8 @@ import {
 
 } from './constants.js'
 
+import { apiCall } from './api/api';
+
 export const setSearchField = (text) => ({
     type: CHANGE_SEARCH_FIELD,
     payload: text
@@ -13,10 +15,7 @@ export const setSearchField = (text) => ({
 
 export const requestRobots = () => (dispatch) => {
     dispatch({ type: REQUEST_ROBOTS_PENDING})
-    fetch('http://localhost:3001', {
-        method: 'get'
-    })
-        .then(response=> response.json())
+    apiCall('http://localhost:3001')
         .then(data => dispatch({ type: REQUEST_ROBOTS_SUCCESS, payload: data }))
         .catch(error => dispatch({ type: REQUEST_ROBOTS_FAILED, payload: error  }))
 }
