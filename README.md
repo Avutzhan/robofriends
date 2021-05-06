@@ -1,73 +1,60 @@
 Reference for typescript conversion https://github.com/aneagoie/robofriends-typescript-completed
 
-# Getting Started with Create React App
+```angular2html
+mysql> create database injection;
+Query OK, 1 row affected (0.00 sec)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+mysql> use injection;
+Database changed
 
-## Available Scripts
+mysql> create table slqinjection (id integer, email varchar(255));
+Query OK, 0 rows affected (0.04 sec)
 
-In the project directory, you can run:
+mysql> show tables;
++---------------------+
+| Tables_in_injection |
++---------------------+
+| slqinjection        |
++---------------------+
+1 row in set (0.00 sec)
 
-### `yarn start`
+mysql> describe slqinjection;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int(11)      | YES  |     | NULL    |       |
+| email | varchar(255) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+2 rows in set (0.02 sec)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+mysql> insert into slqinjection (email) values ('lol');
+Query OK, 1 row affected (0.02 sec)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+mysql> show tables;
++---------------------+
+| Tables_in_injection |
++---------------------+
+| slqinjection        |
++---------------------+
+1 row in set (0.01 sec)
 
-### `yarn test`
+mysql> select * from slqinjection;
++------+-------+
+| id   | email |
++------+-------+
+| NULL | lol   |
++------+-------+
+1 row in set (0.00 sec)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+mysql> insert into slqinjection (email) values (; drop table slqinjection; --);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query OK, 0 rows affected (0.04 sec)
 
-### `yarn build`
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--)' at line 1
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+mysql> show tables;
+Empty set (0.00 sec)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+My First SQL Injection to my local database i dropped slqinjection table like a hicker miker 
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# robofriends
