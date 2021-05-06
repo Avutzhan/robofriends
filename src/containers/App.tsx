@@ -1,12 +1,25 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { setSearchField, requestRobots } from "../actions";
-
-import MainPage from '../components/MainPage';
-
+import * as React from 'react';
 import './App.css';
 
-const mapStateToProps = state => {
+import { connect } from 'react-redux';
+import { setSearchField, requestRobots } from "../actions";
+import MainPage from '../components/MainPage';
+
+export interface IRobot {
+    name: string;
+    id: number;
+    email: string;
+}
+
+interface IAppProps {
+}
+
+interface IAppState {
+    robots: Array<IRobot>;
+    searchfield: string;
+}
+
+const mapStateToProps = (state: any) => {
     return {
         searchField: state.searchRobots.searchField,
         robots: state.requestRobots.robots,
@@ -15,15 +28,15 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
-        onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+        onSearchChange: (event: any) => dispatch(setSearchField(event.target.value)),
         onRequestRobots: () => dispatch(requestRobots())
     }
 }
 
-class App extends Component {
-    render() {
+class App extends React.Component<IAppProps, IAppState> {
+    render(): JSX.Element {
         return <MainPage { ...this.props }/>
     }
 }

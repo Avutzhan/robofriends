@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import CardList from '../components/CardList';
-import SearchBox from '../components/SearchBox';
-import Scroll from '../components/Scroll';
+import CardList from './CardList';
+import SearchBox from './SearchBox';
+import Scroll from './Scroll';
 import Header from '../components/Header';
 
 import './MainPage.css';
@@ -19,7 +19,7 @@ class MainPage extends Component {
     }
 
     render() {
-        const { onSearchChange, robots, isPending } = this.props;
+        const { onSearchChange, isPending } = this.props;
 
         return isPending ?
             <h1>Loading</h1> :
