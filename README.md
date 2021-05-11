@@ -58,3 +58,4 @@ Empty set (0.00 sec)
 My First SQL Injection to my local database i dropped slqinjection table like a hicker miker 
 ```
 
+https://www.hacksplaining.com/exercises/sql-injection
